@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'style_login.css' %}">
+</head>
+<body>
+<div class="form-container">
+    <form method="post">
+        {% csrf_token %}
+        <h3>LOGIN</h3>
+        {% if messages %}
+            {% for message in messages %}
+                <span class="error-msg">{{ message }}</span>
+            {% endfor %}
+        {% endif %}
+        <input type="email" name="email" required placeholder="Digite seu Email">
+        <input type="password" name="password" required placeholder="Digite sua senha">
+        <input type="submit" value="login" class="form-btn">
+        <p>Não tem uma conta? <a href="{% url 'register' %}">Registre Agora</a></p>
+    </form>
+</div>
+</body>
+</html> 
