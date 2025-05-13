@@ -3,11 +3,12 @@ from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
+from .models import Todo, Consulta
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView
-from .models import Todo
 from django.urls import reverse_lazy
 
 
@@ -66,5 +67,24 @@ def register_view(request):
             return redirect('login')
     return render(request, 'todos/register.html')
 
+@login_required
+def ver_consultas_view(request):
+    consultas = Consulta.objects.filter(usuario=request.user).order_by('-data', '-hora')
+    return render(request, 'todos/ver_consultas.html', {'consultas': consultas})
+
+@login_required
 def agendar_consulta_view(request):
+    if request.method == 'POST':
+        especialidade = request.POST['especialidade']
+        data = request.POST['data']
+        hora = request.POST['hora']
+        observacoes = request.POST.get('obs', '')
+        Consulta.objects.create(
+            usuario=request.user,
+            especialidade=especialidade,
+            data=data,
+            hora=hora,
+            observacoes=observacoes
+        )
+        return redirect('ver_consultas')
     return render(request, 'todos/agendar_consulta.html')
