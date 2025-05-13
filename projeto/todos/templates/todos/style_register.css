@@ -133,4 +133,19 @@ p a:hover {
     form {
         padding: 1.5rem 0.5rem;
     }
+}
+
+/* Estilos da navbar (copiados do style.css do index) */
+.navbar {
+    background-color: #4caf50;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand {
+    color: #f4f4f4 !important;
+    font-weight: bold;
+}
+
+.nav-link {
+    color: #f4f4f4;
 } 

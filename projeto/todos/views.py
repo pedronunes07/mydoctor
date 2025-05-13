@@ -23,6 +23,9 @@ class TodoCreateView(CreateView):
 class HomeView(TemplateView):
     template_name = 'todos/index.html'
 
+def dashboard_view(request):
+    return render(request, 'todos/dashboard.html')
+
 def login_view(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -34,10 +37,7 @@ def login_view(request):
             user = None
         if user is not None:
             login(request, user)
-            if user.is_staff:
-                return redirect('admin_page')
-            else:
-                return redirect('user_page')
+            return redirect('dashboard')
         else:
             messages.error(request, 'Email ou senha incorretos!')
     return render(request, 'todos/login.html')
@@ -65,3 +65,6 @@ def register_view(request):
             messages.success(request, 'Cadastro realizado com sucesso! Faça login.')
             return redirect('login')
     return render(request, 'todos/register.html')
+
+def agendar_consulta_view(request):
+    return render(request, 'todos/agendar_consulta.html')

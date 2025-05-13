@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="{% static 'style_register.css' %}">
+    <title>Agendar Consulta</title>
+    <link rel="stylesheet" href="{% static 'style_agendar.css' %}">
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'style.css' %}" rel="stylesheet">
 </head>
@@ -36,24 +36,26 @@
     </form>
   </div>
 </nav>
-<div class="form-container">
-    <form method="post">
+<div class="agendar-container">
+    <h2>Agendar Consulta</h2>
+    <form class="agendar-form" method="post">
         {% csrf_token %}
-        <h3>CADASTRO</h3>
-        {% if messages %}
-            {% for message in messages %}
-                <span class="error-msg">{{ message }}</span>
-            {% endfor %}
-        {% endif %}
-        <input type="text" name="full_name" required placeholder="Nome completo">
-        <input type="text" name="phone" required placeholder="Telefone">
-        <input type="text" name="username" required placeholder="Nome de usuário">
-        <input type="date" name="birthdate" required placeholder="Data de nascimento" title="Data de nascimento">
-        <input type="email" name="email" required placeholder="E-mail">
-        <input type="password" name="password" required placeholder="Senha">
-        <input type="password" name="password2" required placeholder="Confirme a senha">
-        <input type="submit" value="Cadastrar" class="form-btn">
-        <p>Já tem uma conta? <a href="{% url 'login' %}">Entrar</a></p>
+        <label for="especialidade">Especialidade</label>
+        <select name="especialidade" id="especialidade" required>
+            <option value="">Selecione</option>
+            <option value="clinico">Clínico Geral</option>
+            <option value="pediatra">Pediatra</option>
+            <option value="dermatologista">Dermatologista</option>
+            <option value="cardiologista">Cardiologista</option>
+            <option value="outro">Outro</option>
+        </select>
+        <label for="data">Data</label>
+        <input type="date" name="data" id="data" required>
+        <label for="hora">Hora</label>
+        <input type="time" name="hora" id="hora" required>
+        <label for="obs">Observações</label>
+        <textarea name="obs" id="obs" rows="3" placeholder="Observações (opcional)"></textarea>
+        <button type="submit" class="agendar-btn">Agendar</button>
     </form>
 </div>
 </body>
